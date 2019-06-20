@@ -166,9 +166,10 @@ class HSRequest(object):
             self.headers.update(headers)
 
         response = requests.post(url, headers=self.headers, data=data, auth=self.auth, files=files, verify=self.verify_ssl)
-        json_response = self._process_json_response(response)
+        if get_json:
+            return self._process_json_response(response)
 
-        return json_response if get_json is True else response
+        return response
 
 
     ####  HELPERS  ########################################
